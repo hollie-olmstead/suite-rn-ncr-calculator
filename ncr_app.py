@@ -476,6 +476,15 @@ with metrics_container:
 
 # --- Render Analysis Charts (Right Column) ---
 with col_analysis:
+    # Scenario Summary
+    st.markdown("### Scenario Summary")
+    st.info(f"""
+    **Site of Care:** {selected_scenario}  
+    **Product:** {hcpcs_input if hcpcs_input else 'N/A'} (WAC: ${wac:,.2f})  
+    **Payer Mix:** Medicare {medicare_pct}% | Commercial {commercial_pct}% | Medicaid {medicaid_pct}%  
+    **Discounts:** Contract {discount_percent}% | Prompt Pay {prompt_pay_discount}%
+    """)
+
     st.subheader("Annual Analysis")
     
     # Data for Bar Chart
@@ -537,14 +546,7 @@ with col_analysis:
     )
     st.plotly_chart(fig_gauge, use_container_width=True)
 
-    # Scenario Summary
-    st.markdown("### Scenario Summary")
-    st.info(f"""
-    **Site of Care:** {selected_scenario}  
-    **Product:** {hcpcs_input if hcpcs_input else 'N/A'} (WAC: ${wac:,.2f})  
-    **Payer Mix:** Medicare {medicare_pct}% | Commercial {commercial_pct}% | Medicaid {medicaid_pct}%  
-    **Discounts:** Contract {discount_percent}% | Prompt Pay {prompt_pay_discount}%
-    """)
+
 
     # Detailed Breakdown
     with st.expander("See Calculation Details"):
