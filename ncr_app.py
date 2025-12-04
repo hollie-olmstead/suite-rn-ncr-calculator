@@ -235,11 +235,21 @@ with col_inputs:
         if st.session_state['last_scenario'] != selected_scenario:
             # Update inputs
             scenario_data = SCENARIOS[selected_scenario]
+            
+            # Update backing variables
             st.session_state['discount_percent'] = scenario_data['discount']
             st.session_state['commercial_markup_pct'] = scenario_data['markup']
             st.session_state['medicare_mix'] = scenario_data['mix']['medicare']
             st.session_state['commercial_mix'] = scenario_data['mix']['commercial']
             st.session_state['medicaid_mix'] = scenario_data['mix']['medicaid']
+            
+            # Force update widgets (sliders) by setting their specific keys
+            st.session_state['discount_slider'] = scenario_data['discount']
+            st.session_state['markup_slider'] = scenario_data['markup']
+            st.session_state['medicare_mix_slider'] = scenario_data['mix']['medicare']
+            st.session_state['commercial_mix_slider'] = scenario_data['mix']['commercial']
+            st.session_state['medicaid_mix_slider'] = scenario_data['mix']['medicaid']
+            
             st.session_state['last_scenario'] = selected_scenario
             st.success(f"Applied settings for {selected_scenario}")
 
