@@ -499,9 +499,10 @@ with col_analysis:
         plot_bgcolor='rgba(0,0,0,0)', 
         yaxis_title="Amount ($)",
         font=dict(family="Helvetica Neue, Arial", size=14),
-        height=350
+        height=350,
+        bargap=0.6 # Adjust gap to make bars thinner but centered
     )
-    fig_bar.update_traces(width=0.4) # Center columns and make them thinner
+    # fig_bar.update_traces(width=0.4) # Removed explicit width to fix alignment
     st.plotly_chart(fig_bar, use_container_width=True)
     
     # Gauge Chart (Smaller)
@@ -535,6 +536,15 @@ with col_analysis:
         font=dict(family="Helvetica Neue, Arial")
     )
     st.plotly_chart(fig_gauge, use_container_width=True)
+
+    # Scenario Summary
+    st.markdown("### Scenario Summary")
+    st.info(f"""
+    **Site of Care:** {selected_scenario}  
+    **Product:** {hcpcs_input if hcpcs_input else 'N/A'} (WAC: ${wac:,.2f})  
+    **Payer Mix:** Medicare {medicare_pct}% | Commercial {commercial_pct}% | Medicaid {medicaid_pct}%  
+    **Discounts:** Contract {discount_percent}% | Prompt Pay {prompt_pay_discount}%
+    """)
 
     # Detailed Breakdown
     with st.expander("See Calculation Details"):
